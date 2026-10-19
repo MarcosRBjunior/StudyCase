@@ -1,0 +1,24 @@
+# Postgres local para desenvolvimento e testes de integração.
+# Mesma versão major do Supabase (Postgres 17).
+# Porta no host configurável por POSTGRES_PORT (padrão 5437).
+name: study-case
+
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: study_case
+    ports:
+      - '127.0.0.1:${POSTGRES_PORT:-5437}:5432'
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d study_case']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  db-data:

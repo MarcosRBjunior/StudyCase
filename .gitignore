@@ -1,0 +1,20 @@
+node_modules/
+dist/
+coverage/
+*.log
+.DS_Store
+
+# Segredos
+.env
+.env.*
+!.env.example
+
+# Prisma
+api/src/generated/
+
+# Vercel
+.vercel/
+
+# Playwright
+web/test-results/
+web/playwright-report/

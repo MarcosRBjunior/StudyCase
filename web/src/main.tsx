@@ -1,0 +1,15 @@
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router';
+import { AppRoutes } from './router.tsx';
+
+const root = document.getElementById('root');
+if (!root) throw new Error('#root não encontrado');
+
+createRoot(root).render(
+  <StrictMode>
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
+  </StrictMode>,
+);
