@@ -1609,7 +1609,7 @@ Critérios: `npm run dev -w api` e `npm run dev -w web` sobem sozinhos; lint pas
 
 **US-0.2 — CI básico.** Como desenvolvedor, quero lint, typecheck, testes e build em cada PR para não quebrar a `main`.
 
-- [ ] Workflow `ci.yml` com Postgres de serviço
+- [x] Workflow `ci.yml` com Postgres de serviço
 - [ ] Proteção da `main` exigindo CI verde
 
 Critérios: um PR com erro de tipo falha no CI. Dependências: US-0.1.
