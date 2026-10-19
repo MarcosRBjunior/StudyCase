@@ -1610,7 +1610,7 @@ Critérios: `npm run dev -w api` e `npm run dev -w web` sobem sozinhos; lint pas
 **US-0.2 — CI básico.** Como desenvolvedor, quero lint, typecheck, testes e build em cada PR para não quebrar a `main`.
 
 - [x] Workflow `ci.yml` com Postgres de serviço
-- [ ] Proteção da `main` exigindo CI verde
+- [x] Proteção da `main` exigindo CI verde
 
 Critérios: um PR com erro de tipo falha no CI. Dependências: US-0.1.
 
@@ -2090,12 +2090,12 @@ Oito fases em sequência, cada uma terminando com algo verificável em produçã
 
 Histórias: US-0.1, US-0.2 e o esqueleto de US-9.1 e US-9.2. Decisões D-02, D-12 e D-14 tomadas em 19/10/2026.
 
-- [ ] Criar o repositório no GitHub com npm workspaces (`web`, `api`)
-- [ ] `web`: projeto Vite com o template React + TypeScript; instalar `react-router`; página provisória
-- [ ] `api`: Express 5 + TypeScript; `src/app.ts` com `GET /api/v1/health`; `src/index.ts` exportando o app; `src/server.ts` com `listen` para uso local
-- [ ] `tsconfig` estrito, ESLint, Prettier; scripts `lint`, `typecheck`, `test`, `build` em cada app
-- [ ] `docker-compose.yml` com Postgres na mesma versão major do banco gerenciado
-- [ ] `ci.yml` rodando os scripts em todo PR; proteção da `main`
+- [x] Criar o repositório no GitHub com npm workspaces (`web`, `api`)
+- [x] `web`: projeto Vite com o template React + TypeScript; instalar `react-router`; página provisória
+- [x] `api`: Express 5 + TypeScript; `src/app.ts` com `GET /api/v1/health`; `src/index.ts` exportando o app; `src/server.ts` com `listen` para uso local
+- [x] `tsconfig` estrito, ESLint, Prettier; scripts `lint`, `typecheck`, `test`, `build` em cada app
+- [x] `docker-compose.yml` com Postgres na mesma versão major do banco gerenciado
+- [x] `ci.yml` rodando os scripts em todo PR; proteção da `main`
 - [ ] Dois projetos no Vercel (diretório raiz `web/` e `api/`) com deploy automático
 - [ ] Em paralelo: escolher os 3 projetos iniciais (D-18) e rascunhar o primeiro estudo de caso
 
