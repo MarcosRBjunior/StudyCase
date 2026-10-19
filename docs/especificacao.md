@@ -1598,12 +1598,12 @@ São 10 épicos e 26 histórias. Cada história tem ID estável (US-x.y) para vi
 
 **US-0.1 — Repositório desacoplado.** Como desenvolvedor, quero `web` e `api` em pastas independentes para desenvolver cada parte separadamente. \[PDF-18\]
 
-- [ ] Criar repositório com npm workspaces (`web`, `api`)
-- [ ] Gerar `web` com Vite + React + TypeScript; instalar `react-router`
-- [ ] Criar `api` com Express 5 + TypeScript; `app.ts`, `server.ts`, `index.ts`
-- [ ] ESLint, Prettier, `.editorconfig`, `.gitignore`, `.env.example` em cada app
-- [ ] `docker-compose.yml` com Postgres local
-- [ ] README inicial
+- [x] Criar repositório com npm workspaces (`web`, `api`)
+- [x] Gerar `web` com Vite + React + TypeScript; instalar `react-router`
+- [x] Criar `api` com Express 5 + TypeScript; `app.ts`, `server.ts`, `index.ts`
+- [x] ESLint, Prettier, `.editorconfig`, `.gitignore`, `.env.example` em cada app
+- [x] `docker-compose.yml` com Postgres local
+- [x] README inicial
 
 Critérios: `npm run dev -w api` e `npm run dev -w web` sobem sozinhos; lint passa. Dependências: nenhuma.
 
