@@ -29,7 +29,11 @@ docker compose up -d db
 
 # Variáveis de ambiente
 cp api/.env.example api/.env
+cp api/.env.test.example api/.env.test
 cp web/.env.example web/.env
+
+# Aplica as migrações no banco de desenvolvimento
+npm run db:migrate -w api
 
 # Em dois terminais
 npm run dev -w api   # http://localhost:3000/api/v1/health
@@ -45,3 +49,18 @@ npm run dev -w web   # http://localhost:5173
 | `npm test`          | Vitest nos dois apps                |
 | `npm run build`     | Build de produção dos dois apps     |
 | `npm run format`    | Prettier no repositório             |
+
+Os testes da `api` usam o banco `study_case_test` do Postgres local (criado pelo `docker compose`) e aplicam as migrações sozinhos antes de rodar. Nunca aponte o `.env.test` para o Supabase.
+
+## Banco de dados
+
+Prisma 7 com versão fixada (`prisma@7.10.1`). Não instale o Prisma 8: a CLI dele não lê `schema.prisma`.
+
+| Comando                            | O que faz                                              |
+| ---------------------------------- | ------------------------------------------------------ |
+| `npm run db:migrate -w api`        | Aplica as migrações no banco local                     |
+| `npm run db:migrate:create -w api` | Gera uma migração sem aplicar, para editar o SQL antes |
+| `npm run db:generate -w api`       | Gera o cliente em `api/src/generated/prisma`           |
+| `npm run db:studio -w api`         | Abre o Prisma Studio                                   |
+
+A função `is_localized`, os `CHECK`, o índice parcial de capa e o RLS são escritos à mão na migração gerada com `--create-only`. Nunca rode `migrate dev` contra o Supabase.

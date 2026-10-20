@@ -1618,10 +1618,10 @@ Critérios: um PR com erro de tipo falha no CI. Dependências: US-0.1.
 
 **US-1.1 — Schema e migrações.** Como desenvolvedor, quero as 7 tabelas versionadas para guardar projetos, imagens e estudos de caso. \[PDF-07, PDF-09\]
 
-- [ ] Instalar `prisma@7` e `@prisma/client@7` com versão fixada
-- [ ] Escrever `schema.prisma` (seção 11) e o arquivo de configuração do Prisma 7
-- [ ] Gerar migração com `--create-only` e acrescentar `CHECK` e índice parcial de capa
-- [ ] Criar `lib/prisma.ts` com cliente único e driver adapter do Postgres
+- [x] Instalar `prisma@7` e `@prisma/client@7` com versão fixada
+- [x] Escrever `schema.prisma` (seção 11) e o arquivo de configuração do Prisma 7
+- [x] Gerar migração com `--create-only` e acrescentar `CHECK` e índice parcial de capa
+- [x] Criar `lib/prisma.ts` com cliente único e driver adapter do Postgres
 
 Critérios: `migrate dev` cria as tabelas; inserir duas capas no mesmo projeto falha no banco. Dependências: US-0.1.
 
@@ -2105,10 +2105,10 @@ Pronto quando: a URL pública do `web` abre e `/api/v1/health` responde em produ
 
 Histórias: US-1.1, US-1.3, US-4.1 e a primeira versão de US-1.2.
 
-- [ ] Instalar `prisma@7`, `@prisma/client@7` e `@prisma/adapter-pg`, com versões fixadas
-- [ ] Escrever `schema.prisma` e o `prisma.config.ts` apontando para `DIRECT_URL` (seção 11)
-- [ ] `npx prisma@7 migrate dev --create-only`; acrescentar `is_localized`, os `CHECK`, o índice parcial de capa e o RLS; aplicar no Postgres local
-- [ ] `api/src/lib/prisma.ts` com cliente único por instância, `PrismaPg` usando `DATABASE_URL` e pool de 1 conexão
+- [x] Instalar `prisma@7`, `@prisma/client@7` e `@prisma/adapter-pg`, com versões fixadas
+- [x] Escrever `schema.prisma` e o `prisma.config.ts` apontando para `DIRECT_URL` (seção 11)
+- [x] `npx prisma@7 migrate dev --create-only`; acrescentar `is_localized`, os `CHECK`, o índice parcial de capa e o RLS; aplicar no Postgres local
+- [x] `api/src/lib/prisma.ts` com cliente único por instância, `PrismaPg` usando `DATABASE_URL` e pool de 1 conexão
 - [ ] Criar os projetos Supabase de produção e de desenvolvimento; desligar a Data API nos dois
 - [ ] Configurar `DATABASE_URL` e `DIRECT_URL` por ambiente no Vercel e `DIRECT_URL` como secret no GitHub
 - [ ] Rodar `migrate deploy` nos dois projetos; `/health` passa a executar `SELECT 1`

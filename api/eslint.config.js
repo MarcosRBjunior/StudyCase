@@ -11,5 +11,13 @@ export default tseslint.config(
       ecmaVersion: 2023,
       globals: globals.node,
     },
+    rules: {
+      // Seção 15: todo SQL passa pelo Prisma parametrizado.
+      'no-restricted-properties': [
+        'error',
+        { property: '$queryRawUnsafe', message: 'Use $queryRaw com template parametrizado.' },
+        { property: '$executeRawUnsafe', message: 'Use $executeRaw com template parametrizado.' },
+      ],
+    },
   },
 );
