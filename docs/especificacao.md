@@ -1694,7 +1694,7 @@ Critérios: CA-10b a CA-10d, CA-11a. Dependências: US-1.1, US-3.1.
 
 - [ ] Criar conta e pasta `portfolio/`
 - [ ] Subir imagens dos projetos iniciais e anotar `public_id`, largura e altura
-- [ ] `web/src/lib/cloudinary-url.ts` com tamanhos de miniatura e detalhe
+- [x] `web/src/lib/cloudinary-url.ts` com tamanhos de miniatura e detalhe
 
 Critérios: miniatura com no máximo 400 px de largura. Dependências: nenhuma.
 
