@@ -12,3 +12,6 @@ export function createApp() {
 }
 
 export const app = createApp();
+
+// O preset Express do Vercel pode usar src/app.ts como entrada; ele exige export default.
+export default app;
