@@ -1,0 +1,135 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum TechCategory {
+  FRONTEND
+  BACKEND
+  DATABASE
+  INFRA
+  TOOLING
+  OTHER
+
+  @@map("tech_category")
+}
+
+enum CaseStudySectionKind {
+  CONTEXT
+  PROCESS
+  DECISION
+  CHALLENGE
+  RESULT
+  LEARNING
+  OTHER
+
+  @@map("case_study_section_kind")
+}
+
+// Campos Json abaixo são LocalizedText: { "pt-BR": string, "en": string } (RN-14).
+// A forma do objeto é garantida pelo CHECK is_localized(...) na migração e pelo Zod na API.
+
+model Project {
+  id            String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  slug          String              @unique @db.VarChar(80)
+  title         Json
+  summary       Json?
+  description   Json
+  repositoryUrl String?             @map("repository_url") @db.VarChar(500)
+  liveUrl       String?             @map("live_url") @db.VarChar(500)
+  startedOn     DateTime?           @map("started_on") @db.Date
+  finishedOn    DateTime?           @map("finished_on") @db.Date
+  displayOrder  Int                 @default(0) @map("display_order")
+  createdAt     DateTime            @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt     DateTime            @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  features      ProjectFeature[]
+  technologies  ProjectTechnology[]
+  images        ProjectImage[]
+  caseStudy     CaseStudy?
+
+  @@index([displayOrder, createdAt(sort: Desc)], map: "projects_listing_idx")
+  @@map("projects")
+}
+
+model ProjectFeature {
+  id          String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  projectId   String  @map("project_id") @db.Uuid
+  title       Json
+  description Json?
+  position    Int     @db.SmallInt
+  project     Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, position])
+  @@map("project_features")
+}
+
+model Technology {
+  id        String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String              @db.VarChar(60)
+  slug      String              @unique @db.VarChar(60)
+  category  TechCategory?
+  createdAt DateTime            @default(now()) @map("created_at") @db.Timestamptz(6)
+  projects  ProjectTechnology[]
+
+  @@map("technologies")
+}
+
+model ProjectTechnology {
+  projectId    String     @map("project_id") @db.Uuid
+  technologyId String     @map("technology_id") @db.Uuid
+  howUsed      Json       @map("how_used")
+  position     Int        @db.SmallInt
+  project      Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  technology   Technology @relation(fields: [technologyId], references: [id], onDelete: Restrict)
+
+  @@id([projectId, technologyId])
+  @@unique([projectId, position])
+  @@index([technologyId], map: "project_technologies_technology_idx")
+  @@map("project_technologies")
+}
+
+model ProjectImage {
+  id               String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  projectId        String  @map("project_id") @db.Uuid
+  url              String  @db.VarChar(1000)
+  providerPublicId String  @map("provider_public_id") @db.VarChar(255)
+  altText          Json    @map("alt_text")
+  caption          Json?
+  width            Int?
+  height           Int?
+  isCover          Boolean @default(false) @map("is_cover")
+  position         Int     @db.SmallInt
+  project          Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, position])
+  @@map("project_images")
+}
+
+model CaseStudy {
+  id        String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  projectId String             @unique @map("project_id") @db.Uuid
+  summary   Json?
+  createdAt DateTime           @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime           @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  project   Project            @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  sections  CaseStudySection[]
+
+  @@map("case_studies")
+}
+
+model CaseStudySection {
+  id          String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  caseStudyId String               @map("case_study_id") @db.Uuid
+  kind        CaseStudySectionKind
+  title       Json
+  body        Json
+  position    Int                  @db.SmallInt
+  caseStudy   CaseStudy            @relation(fields: [caseStudyId], references: [id], onDelete: Cascade)
+
+  @@unique([caseStudyId, position])
+  @@map("case_study_sections")
+}
